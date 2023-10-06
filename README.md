@@ -1,6 +1,6 @@
 # React Developer Coding Challenge
 
-This is a coding challenge for prospective front-end and full-stack developer applicants applying to DemandHub. If you're unfamiliar with React, Facebook has put together a helpful tutorial that provides a quick introduction to the basics: https://reactjs.org/docs/hello-world.html
+This is a coding challenge for prospective front-end and full-stack developer applicants. If you're unfamiliar with React, Facebook has put together a helpful tutorial that provides a quick introduction to the basics: https://reactjs.org/docs/hello-world.html
 
 ## Goal:
 
