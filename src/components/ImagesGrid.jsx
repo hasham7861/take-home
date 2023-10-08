@@ -67,12 +67,13 @@ function ImagesGrid() {
   return (
     <div className="image-grid">
       {images.map((image, index) => (
-        <div className="image-container" key={image.id}  onClick={() => {lightBoxHandler(true, index)}}>
+        <div className="image-container" key={image.id}>
           <LazyLoadImage
             alt={image.title}
             effect="blur"
             src={image.image}
             height={500} // temporary height needed to enable lazy loading
+            onClick={() => {lightBoxHandler(true, index)}}
           />
         </div>
       ))}
