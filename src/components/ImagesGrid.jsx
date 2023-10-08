@@ -4,9 +4,11 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
-
-import { LightBox } from 'react-lightbox-pack';
-import "react-lightbox-pack/dist/index.css";
+import LightBox from "yet-another-react-lightbox";
+import "yet-another-react-lightbox/dist/styles.css";
+import Counter from "yet-another-react-lightbox/dist/plugins/counter";
+import Captions from "yet-another-react-lightbox/dist/plugins/captions";
+import "yet-another-react-lightbox/dist/plugins/captions/captions.css";
 
 const getImages = async (page, perPage) => {
   try {
@@ -27,24 +29,21 @@ function ImagesGrid() {
   const [page, setPage] = React.useState(1)
   const perPage = 10 // 30 aka max limit images per page is probably better to avoid too many api calls
   const [images, setImages] = React.useState([])
-
-  const [toggle, setToggle] = React.useState(false)
   const [sIndex, setSIndex] = React.useState(0)
 
-    // Handler
-	const  lightBoxHandler  = (state, sIndex) => {
-		setToggle(state);
-		setSIndex(sIndex);
-	};
+  const [open, setOpen] = React.useState(false);
+  
 
-  const transformDataForLightBox = (images) => {
+  const transformData = (images) => {
     console.log('transforming img data')
     return images.map((image) => {
       return {
         id: image.id,
-        image: image.urls.full,
+        src: image.urls.full,
         description: image.description,
         title: image.alt_description,
+        width: image.width,
+        height: image.height,
       };
     })  
   }
@@ -53,13 +52,18 @@ function ImagesGrid() {
   React.useEffect(() => {
     getImages(page, perPage).then((data) => {
       console.log('load more images:', data)
-      const transformedData = transformDataForLightBox(data)
+      const transformedData = transformData(data)
       setImages((prevImages) => [...prevImages, ...transformedData])
     }).catch((error) => {
       console.error('Error:', error);
     })
   }, [page])
 
+
+  const onLightBoxOpen = (index) => {
+    setSIndex(index)
+    setOpen(true)
+  }
 
 
 
@@ -71,25 +75,24 @@ function ImagesGrid() {
           <LazyLoadImage
             alt={image.title}
             effect="blur"
-            src={image.image}
+            src={image.src}
             height={500} // temporary height needed to enable lazy loading
-            onClick={() => {lightBoxHandler(true, index)}}
+            onClick={() => {onLightBoxOpen(index)}}
           />
         </div>
       ))}
       <InfiniteScroll dataLength={images.length} next={() => setPage(page + 1)} hasMore={true} loader={<h4>Loading...</h4>}/>
 
-      <LightBox
-				state={toggle}
-        event={lightBoxHandler}
-        data={images}
-        imageWidth="60vw"
-        imageHeight="70vh"
-        thumbnailHeight={50}
-        thumbnailWidth={50}
-        setImageIndex={setSIndex}
-        imageIndex={sIndex}
-			/>
+    <LightBox
+        open={open}
+        close={() => setOpen(false)}
+        slides={images}
+        plugins={[Counter, Captions]}
+        index={sIndex}
+      />
+
+
+      
 
     </div>
   );
