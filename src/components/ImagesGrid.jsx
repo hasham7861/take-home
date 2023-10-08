@@ -43,7 +43,7 @@ function ImagesGrid() {
             alt={image.alt_description}
             effect="blur"
             src={image.urls.full}
-            height={600}/> {/* A temporary height is required else it loads all images at once*/}
+            height={500}/> {/* Note this doesn't crop the image, just temporary height is required else it loads all images at once*/}
         </div>
       ))}
       <InfiniteScroll dataLength={images.length} next={() => setPage(page + 1)} hasMore={true} loader={<h4>Loading...</h4>}/>
