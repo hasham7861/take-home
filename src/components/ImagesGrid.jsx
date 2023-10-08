@@ -2,6 +2,7 @@ import React from 'react';
 import './ImagesGrid.css';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 const getImages = async (page, perPage) => {
   try {
@@ -20,31 +21,32 @@ const getImages = async (page, perPage) => {
 function ImagesGrid() {
 
   const [page, setPage] = React.useState(1)
-  const perPage = 10 /*30*/  // Change it back to 30
-  const [imagesJsx, setImagesJsx] = React.useState([])
+  const perPage = 10 // 30 aka max limit images per page is probably better to avoid too many api calls
+  const [images, setImages] = React.useState([])
 
-  const getImagesInJsx = (data) => {
-    return data.map((image) => (
-      <div className="image-container" key={image.alt_description}>
-        <LazyLoadImage
-          alt={image.alt_description}
-          effect="blur"
-          src={image.urls.full}
-          height={600}/>
-      </div>
-    ))
-  }
   React.useEffect(() => {
     getImages(page, perPage).then((data) => {
-     setImagesJsx(getImagesInJsx(data))
+      console.log('debug data:', data)
+      setImages((prevImages) => [...prevImages, ...data])
     }).catch((error) => {
       console.error('Error:', error);
     })
-  }, [page, perPage])
+  }, [page])
+
+
 
   return (
     <div className="image-grid">
-      {imagesJsx}
+      {images.map((image) => (
+        <div className="image-container" key={image.id}>
+          <LazyLoadImage
+            alt={image.alt_description}
+            effect="blur"
+            src={image.urls.full}
+            height={600}/> {/* A temporary height is required else it loads all images at once*/}
+        </div>
+      ))}
+      <InfiniteScroll dataLength={images.length} next={() => setPage(page + 1)} hasMore={true} loader={<h4>Loading...</h4>}/>
     </div>
   );
 }
