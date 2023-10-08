@@ -1,12 +1,12 @@
 import React from 'react';
-import ImagesGrid from './components/ImagesGrid';
 import './App.css';
+import Gallery from './components/gallery/Gallery';
 
 function App() {
 
   return (
     <div className='App'>
-      <ImagesGrid />
+      <Gallery />
     </div>
   );
 }
