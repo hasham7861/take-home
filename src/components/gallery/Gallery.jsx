@@ -30,7 +30,7 @@ function Gallery() {
   const [page, setPage] = React.useState(START_PAGE)
   const perPage = PER_PAGE
   const [images, setImages] = React.useState([])
-  const [sIndex, setSIndex] = React.useState(0)
+  const [lightBoxCurrentImageIndex, setLightBoxCurrentImageIndex] = React.useState(0)
 
   const [open, setOpen] = React.useState(false);
   
@@ -46,7 +46,7 @@ function Gallery() {
 
 
   const onLightBoxOpen = (index) => {
-    setSIndex(index)
+    setLightBoxCurrentImageIndex(index)
     setOpen(true)
   }
 
@@ -61,7 +61,7 @@ function Gallery() {
         open={open}
         setOpen={setOpen}
         images={images}
-        index={sIndex}
+        index={lightBoxCurrentImageIndex}
       />
       <InfiniteScroll 
         dataLength={images.length}
