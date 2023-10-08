@@ -11,7 +11,7 @@
 
 .image-container img {
   max-width: 100%;
-  object-fit: cover; /* Not cropping, instead trying to make it fit properly in box*/
+  object-fit: contain;
 }
 
 @media screen and (max-width: 768px) {
