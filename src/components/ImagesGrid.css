@@ -6,6 +6,7 @@
 .image-container {
   border: 1px solid #ddd;
   text-align: center;
+  cursor: pointer;
 }
 
 .image-container img {
