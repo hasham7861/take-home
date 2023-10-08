@@ -1,6 +1,17 @@
-# Unsplash images explorer
+# Unsplash Gallery
 
-This project was bootstrapped with CRA boilerplate and for the app to work you need to copy .env.sample to .env file in root dir and fill in the REACT_APP_CLIENT_ID w/ provided id
+This project demo: [Link to Demo](./demo/video-demo.mp4)
+
+## packages used
+
+- react-infinite-scroll-component for infinite scroll
+- react-lazy-load-image-component for lazy load images
+- yet-another-react-lightbox for light box
+- didn't use any library for fetching images from unsplash as I thought it was overkill
+
+## For the app to work
+
+- You need to have .env file in your root directory, I will supply it privately, or you can copy the .env.sample to .env and put in your own REACT_APP_CLIENT_ID property
 
 ## Available Scripts
 
@@ -8,18 +19,5 @@ In the project directory, you can run:
 
 ### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
 ### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
